@@ -1,0 +1,177 @@
+Copy&paste from http://jansipke.nl/creating-a-centos-xen-virtual-machine-image/ with modifications for my own use.
+
+In this article we will create a CentOS 5.11 virtual machine image that can be used by Xen. We need to bring three pieces together:
+
+    The kernel (vmlinuz)
+    The ramdisk (initrd)
+    The filesystem
+
+Kernel (Skiped)
+
+The easiest way to create a suitable kernel, ramdisk and filesystem is to use a system with CentOS 5.2 on it with xen enabled:
+
+    yum install xen
+
+Change the default kernel to the new kernel with xen support by editing /boot/grub/menu.lst:
+
+    default=0
+
+and reboot
+
+Ramdisk
+
+Create the ramdisk by running mkinitrd:
+
+    mkinitrd --omit-scsi-modules --with=xennet --with=xenblk --preload=xenblk /root/xen-image/centos-ramdisk.img
+
+Filesystem
+
+The hardest job is getting a filesystem. Create a directory where we will hold the filesystem image:
+
+    mkdir /root/xen-image
+    cd /root/xen-image
+
+Create an image file and make a filesystem on this file:
+
+    dd if=/dev/zero of=centos-root.img bs=1M count=1999
+    mkfs.ext3 centos-root.img
+
+Create a directory where we can mount the newly created image:
+
+    mkdir rootdisk
+    mount -o loop centos-root.img /root/xen-image/rootdisk/
+    cd rootdisk
+
+Create the etc directory:
+
+    mkdir etc
+
+and edit the file etc/fstab:
+
+    /dev/sda1   /          ext3     defaults         1 1
+    none        /dev/pts   devpts   gid=5,mode=620   0 0
+    none        /dev/shm   tmpfs    defaults         0 0
+    none        /proc      proc     defaults         0 0
+    none        /sys       sysfs    defaults         0 0
+
+Create some necessary device files:
+
+    mkdir dev
+    for i in console null zero; do /sbin/MAKEDEV -d /root/xen-image/rootdisk/dev -x $i; done
+
+Copy the kernel modules:
+
+    mkdir -p lib/modules
+    cp -a /lib/modules/2.6.18-128.1.6.el5xen/ /root/xen-image/rootdisk/lib/modules/
+
+Create the directory for network scripts:
+
+    mkdir -p etc/sysconfig/network-scripts
+
+Edit the file that describes the first network interface, /etc/sysconfig/network-scripts/ifcfg-eth0:
+
+    DEVICE=eth0
+    BOOTPROTO=dhcp
+    ONBOOT=yes
+
+Do the same for the second network interface, /etc/sysconfig/network-scripts/ifcfg-eth1:
+
+    DEVICE=eth1
+    BOOTPROTO=dhcp
+    ONBOOT=yes
+
+And the last network script, etc/sysconfig/network:
+
+    NETWORKING=yes
+    HOSTNAME=centos11
+    GATEWAY=x.x.x.x
+
+Create the RPM lock directory:
+
+    mkdir -p var/lock/rpm
+
+We need to create a specific configuration file for yum, /root/xen-image/yum-xen.conf:
+
+    [main]
+    cachedir=/var/cache/yum
+    keepcache=0
+    debuglevel=2
+    logfile=/var/log/yum.log
+    distroverpkg=redhat-release
+    tolerant=1
+    exactarch=1
+    obsoletes=1
+    gpgcheck=0
+    plugins=1
+    metadata_expire=1h
+
+    [base]
+    name=CentOS-5.11 - Base
+    baseurl=http://mirror.centos.org/centos/5.11/os/i386/
+    enabled=1
+
+    [extras]
+    name=CentOS-5.11 - Extras
+    baseurl=http://mirror.centos.org/centos/5.11/extras/i386/
+    enabled=1
+
+    [updates]
+    name=CentOS-5.11 - Updates
+    baseurl=http://mirror.centos.org/centos/5.11/updates/i386/
+    enabled=1
+
+    [addons]
+    name=CentOS-5.11 - Addons
+    baseurl=http://mirror.centos.org/centos/5.11/addons/i386/
+    enabled=1
+
+Use the configuration file we just edited to install the base system and add the openssh server:
+
+    yum -c /root/xen-image/yum-xen.conf --installroot=/root/xen-image/rootdisk -y groupinstall base
+    yum -c /root/xen-image/yum-xen.conf --installroot=/root/xen-image/rootdisk -y install openssh openssh-server
+
+To set an initial password for root, we chroot into the rootdisk we created:
+
+    chroot /root/xen-image/rootdisk
+
+Edit the /etc/passwd file inside the chroot and change the ‘*’ on the first line with an ‘x':
+
+    root:x:0:0:root:/root:/bin/bash
+
+Run pwconv to enable shadow passwords and set the root password:
+
+    pwconv
+    passwd root
+
+Disable TLS:
+
+    mv /lib/tls /lib/tls.disabled
+
+Exit from the chroot:
+
+    exit
+
+Unmount the rootdisk:
+
+    cd /root
+    umount /root/xen-image/rootdisk
+
+Putting it all together
+
+Create a new configuration file for Xen specific to this image, /etc/xen/centos52:
+
+    kernel = "/boot/vmlinuz-2.6.18-128.1.6.el5xen"
+    ramdisk = "/root/xen-image/centos-ramdisk.img"
+    name = "centos511"
+    memory = "256"
+    disk = [ 'file:/root/xen-image/centos-root.img,sda1,w' ]
+    root = '/dev/sda1 ro'
+    vif = [ 'bridge=xenbr0', '']
+    vcpus=1
+    on_reboot = 'destroy'
+    on_crash = 'destroy'
+
+And finally, starting the Xen VM image:
+
+    /usr/sbin/xm create -c centos511
+

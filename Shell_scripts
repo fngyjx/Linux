@@ -33,3 +33,21 @@ Wed Jan 14 07:59:58 CST
 3. how to tell shell commands from shell external utility binary commands - anything you may find in /bin. e.g. true is not shell command but : is. It is important for writing portable shell scripts.
 
 4. Here Document:a) hyphen after << tells shell to strip leading tabs (but not leading spaces); b) if the sentinel is quoted, the input in Here Document like single quoted - no substitutions are performed on the text. 
+
+5.tokenize - maximal munch: (Tokens - word, keyword, special charactors)
+ echo a #b;echo c# d e
+a
+ echo a #b
+a
+ echo c# d e
+c# d e
+
+Cannot expand variables into special kokens - only plain words. the results of substitution, globbing, or quoting are always words.
+
+ str="X=3"
+ $str
+-bash: X=3: command not found
+ eval $str; echo $X
+3
+
+keywords: ! { } case do done elif else esac fi for if in then while until

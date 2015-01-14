@@ -29,6 +29,8 @@ Wed Jan 14 07:59:58 CST
 my test
 Wed Jan 14 07:59:58 CST 
 
+subshell usually more computationally expensive than compound statements. change () to {} when possible.
+
 3. how to tell shell commands from shell external utility binary commands - anything you may find in /bin. e.g. true is not shell command but : is. It is important for writing portable shell scripts.
 
 4. Here Document:a) hyphen after << tells shell to strip leading tabs (but not leading spaces); b) if the sentinel is quoted, the input in Here Document like single quoted - no substitutions are performed on the text. 

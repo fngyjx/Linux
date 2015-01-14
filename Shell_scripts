@@ -51,3 +51,22 @@ Cannot expand variables into special kokens - only plain words. the results of s
 3
 
 keywords: ! { } case do done elif else esac fi for if in then while until
+
+command lists - command list can be endded with a special keyword. the command list exist status is the last command existing status.
+  while if true; then false; fi do false;done
+  echo $?
+ 0
+ where fi ends the command list of while.
+  while true do false; break;done;
+-bash: syntax error near unexpected token `done'
+where command list of while does not end. 
+ while true; do false; break;done;
+ echo $?
+0
+Where ';' ends the command list of while.
+
+short circuits : if exit condition can be determined the cmd2 can be skipped.
+cmd1 && cmd2 # both true is true otherwise false
+cmd1 || cmd2 # either true is true, both false is false.
+so that if cmd1 is false then cmd2 after && will be skipped; in the other side cmd2 after || will be executed.
+        if cmd1 is true the cmd2 after && will not be skipped and cmd2 after || will be skipped

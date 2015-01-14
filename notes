@@ -1,0 +1,7 @@
+UNIX like system allows newlines in a file name. - <<beginning Portable Shell Scripts>> by Peter Seebach, Apress, 2008.
+cat > "my filename with
+newlines" <<EOF;
+> Here we go - this this the contents of the file that has newline in its name.
+> EOF
+cat my filename with?newlines
+Here we go - this this the contents of the file that has newline in its name.

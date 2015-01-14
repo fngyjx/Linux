@@ -18,17 +18,16 @@ Wed Jan 14 07:37:12 CST
 
 Where redirect >&2 did not affect following command's standard output file discriptor (temporary);
 
- (echo "test" 2>/dev/null >&2 ;  exec >&2; echo "test again" 2>/dev/null) | (date;cat;date)
-test again #from stdout of front command, as the stdout redirected not treated as stdin of following.
-Wed Jan 14 07:37:50 CST 
-Wed Jan 14 07:37:50 CST 
-Where exec >&2 affected following command's standard output file discriptor (permanently).
+ (exec 3>&1; exec >/tmp/stdout; echo "test again" ) | (date;cat;date) 2>/dev/null
+Wed Jan 14 12:07:46 CST 2015
+Wed Jan 14 12:07:46 CST 2015
+Where exec >/tmp/stdout redirect stdout to the file (permanently in sub shell that command grouped with parentheses[()])
+ {echo "test" 2>/dev/null >&2 ;  exec 3>&1; exec >/tmp/stdout; echo "test again" } | (date;cat;date) 2>/dev/null
+Where stdout redirection also used after the pipe because the redirection is in current shell by using braces [{}] grouping the commands.
  (echo "test" 2>/dev/null >&2 ;  exec 3>&1; exec >/tmp/stdout; echo "test again"; exec >&3; echo "my test" ) | (date;cat;date) 2>/dev/null
 Wed Jan 14 07:59:58 CST 
 my test
 Wed Jan 14 07:59:58 CST 
-
-
 
 3. how to tell shell commands from shell external utility binary commands - anything you may find in /bin. e.g. true is not shell command but : is. It is important for writing portable shell scripts.
 

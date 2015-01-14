@@ -1,0 +1,11 @@
+1. Redirect file discriptor of the script file: temporary vs permanently redirection. temporary - regular commands, permanently - exec command.
+> exec 2>log.err # Permanently redirect standard error discriptor to log.err in current shell
+> grep "$test" ./* 2>/dev/null #redirects standard error discriptor temporarily to /dev/null
+  
+2. 'end of file' vs 'no data available right now': in the pipeline, 'end of file' happens to the after command when the front command terminated, otherwise 'no data available right now'.
+> sh -c 'sleep 5' | ( date; cat; date)
+Wed Jan 14 05:33:37 CST 2015
+Wed Jan 14 05:33:42 CST 2015
+where cat got 'end of file' after 5 seconds. The 'end of file' is the file discriptor closed, redirection does it.
+
+3. how to tell shell commands from shell external utility binary commands - anything you may find in /bin. e.g. true is not shell command but : is. It is important for writing portable shell scripts.

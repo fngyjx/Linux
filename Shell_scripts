@@ -1,3 +1,4 @@
+
 Linux enviroument:  uname -a
 Linux localhost 2.6.18-308.4.1.el5xen #1 SMP Tue Apr 17 18:27:35 EDT 2012 i686 i686 i386 GNU/Linux
 
@@ -71,3 +72,41 @@ cmd1 && cmd2 # both true is true otherwise false
 cmd1 || cmd2 # either true is true, both false is false.
 so that if cmd1 is false then cmd2 after && will be skipped; in the other side cmd2 after || will be executed.
         if cmd1 is true the cmd2 after && will not be skipped and cmd2 after || will be skipped
+
+Use external shell to start a completely independent (to parent) background task.
+
+sh -c "back_ground_task >/dev/null 2>&1 </dev/null &"
+
+The standard I/O redirection is important, cus the parent process may have I/O stream opened when the back ground process is started to preent they are closed when the back ground task exits.
+
+sh -c "tar cf - $dir | bizp2 | ssh user@remote \"bzip2 -dc | tar xf -\" &"
+
+tar cf - . | (cd $target_dir; tar xpf -)
+
+tar unlike cp command, it preserves a broad varity of nonstatandard files, such as device nodes.
+
+md5sum Shell_scripts
+ 80dcfb33778ff19dae3a8777e4722c5e Shell_scripts
+
+command substitute:
+var=`md5sum Shell_scripts`; echo "var=["$var"]"
+ var=[80dcfb33778ff19dae3a8777e4722c5e Shell_scripts]
+
+Pipe redirection
+
+md5sum Shell_scripts | read var; echo "var=["$var"]"
+ var=[]
+
+md5sum Shell_scripts | ( read var; echo "var=["$var"]"
+ var=[80dcfb33778ff19dae3a8777e4722c5e Shell_scripts]
+
+md5sum Shell_scripts 2>/dev/null | (read var var1; echo "var=["$var"] var1=["$var1"]")
+ var=[80dcfb33778ff19dae3a8777e4722c5e] var1=[Shell_scripts]
+
+md5sum Shell_scripts 2>/dev/null | while read var
+do
+echo "var=["$var"]"
+done
+ var=[80dcfb33778ff19dae3a8777e4722c5e Shell_scripts]
+
+#!/bin/sh  #ELF - executable and linking format (#! called as shebang- short for sharp-bang)

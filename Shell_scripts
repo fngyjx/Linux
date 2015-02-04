@@ -110,3 +110,68 @@ done
  var=[80dcfb33778ff19dae3a8777e4722c5e Shell_scripts]
 
 #!/bin/sh  #ELF - executable and linking format (#! called as shebang- short for sharp-bang)
+
+Shell Inter-process commuications: pipe, exit status, signal (kill-trap, kill 0 pid not signaling but check if the process of pid exists.
+
+Background process.
+delay=5;sh -c 'sh -c "sleep $delay; kill $$" >/dev/null 2>&1 & exec sh -c \'$*\' ''
+ sh: -c: line 0: unexpected EOF while looking for matching `''
+ sh: -c: line 1: syntax error: unexpected end of file
+Above, escape single quote was not working
+
+Following, single-quotes have single-quotes in double-quotes was working.
+delay=5;sh -c 'sh -c "sleep '$delay'; kill $$" >/dev/null 2>&1 & exec sh -c "'"$*"'" '
+
+back-ground process id is stored in $!
+
+An elegant timeout function by Alan Barett:
+
+func_timeout() ( #note not use {
+  timeout=$1
+  shift
+  "$@" &
+  childpid=$!
+  (
+    trap 'kill -TERM $sleeppid 2>/dev/null; exit 0' TERM
+    sleep $timeout &
+    sleeppid=$!
+    kill -TERM $childpid 2>/dev/null
+    sleep 2
+    kill -KILL $childpid 2>/dev/null
+  ) &
+  alarmpid=$!
+  wait $childpid 2>/dev/null
+  status=$?
+  kill -TERM $alarmpid 2>/dev/null
+
+  return $status
+)
+
+
+Shell Operations in order
+1st. Tokenizing #creates tokens.  This is the only phase that can create keywords or special shell punctuation. Words are split on whitespace.
+2nd. Brace Expansion  #only in some shells
+3rd. Tidle expansion
+4th. Substitution #variable and command substitution
+5th. Field splitting #results of substitution split on $IFS
+6th. Globbing
+7th. Rediredtion
+8th. Execution.
+
+exceptions: 
+1. The control expression of a 'case' statement and right-hand-side of variable assignment, the field splitting and globbing are not performed.
+2.  Quotings: from 3rd to 6th operations, in single-quotes none performed; in double-quotes only substitutions are performed.
+
+The steps take one command at a time unless the commands are in the same line separated by ';'.
+
+the assignment: a=one two will be failed if there is no command two available - the assignment followed command two. Also the current shell's a variable will not be affected. 
+
+a="one two"
+b=$a #OK - no field splitting in assignment. Tokenizing (word spliting) found $a is syntax OK.
+echo $b
+ one two
+
+
+Convert utf file to ascii file - use iconv
+
+iconv -f utf-8|16 -t iso-8859-1 utf-file > ascii-file

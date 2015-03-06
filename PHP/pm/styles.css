@@ -1,0 +1,23 @@
+A:link { color: #669933; text-decoration: underline; }
+A:visited { color: #669933; text-decoration: underline; }
+A:hover { color: #976AC2; text-decoration: underline; }
+
+.nav A:link   { color: #669933; text-decoration: none; font: 7pt verdana, arial, geneva, sans-serif; font-weight: bold; }
+.nav A:visited   { color: #7ACC14; text-decoration: none; font: 7pt verdana, arial, geneva, sans-serif; font-weight: bold; }
+.nav A:hover,active   { color: #FFCC00; text-decoration: none; font: 7pt verdana, arial, geneva, sans-serif; font-weight: bold; }
+
+BODY { font-family: verdana, tacoma, geneva, arial, sans-serif; }
+
+
+TD				{ font: 9pt verdana, tacoma, geneva, arial, sans-serif }
+P				{ font: 9pt verdana, tacoma, geneva, arial, sans-serif }
+OL				{ font: 9pt verdana, tacoma, geneva, arial, sans-serif }
+UL				{ font: 9pt verdana, tacoma, geneva, arial, sans-serif }
+LI				{ font: 9pt verdana, tacoma, geneva, arial, sans-serif }
+B				{ font: 9pt verdana, tacoma, geneva, arial, sans-serif; color: #000000; font-weight: bold }
+.black			{ font: 9pt verdana, tacoma, geneva, arial, sans-serif; color: #000000; font-weight: bold }
+B.red			{ font: 9pt verdana, tacoma, geneva, arial, sans-serif; color: #669933; font-weight: bold }
+B.white		{ font: 9pt verdana, tacoma, geneva, arial, sans-serif; color: #FFFFFF; font-weight: bold }
+.small			{ font: 7pt verdana, tacoma, geneva, arial, sans-serif; color: #000000 }
+
+B.header 	{ font: 12pt verdana, tacoma, geneva, arial, sans-serif; color: #669933; font-weight: bold }

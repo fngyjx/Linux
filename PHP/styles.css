@@ -1,0 +1,161 @@
+A:link { 
+	/*color: #330066; */
+	text-decoration: underline; 
+}
+A:visited { 
+	/* color: #330066; */
+	text-decoration: underline; 
+}
+A:hover { 
+	/* color: #66CC33; */
+	text-decoration: underline; 
+}
+
+/* .nav A:link   { color: #330066; text-decoration: none; font: 7pt verdana, arial, geneva, sans-serif; font-weight: bold; } */
+/* .nav A:visited   { color: #7ACC14; text-decoration: none; font: 7pt verdana, arial, geneva, sans-serif; font-weight: bold; } */
+/* .nav A:hover,active   { color: #FFCC00; text-decoration: none; font: 7pt verdana, arial, geneva, sans-serif; font-weight: bold; } */
+
+body {
+	/* background-image:url('images/purple_backer.gif'); */
+	margin: 0;
+	font-size:100%
+	/* font-family: verdana, tacoma, sans-serif; */
+}
+
+/*
+TD				{ font: 9pt verdana, tacoma, sans-serif }
+P				{ font: 9pt verdana, tacoma, sans-serif }
+OL				{ font: 9pt verdana, tacoma, sans-serif }
+UL				{ font: 9pt verdana, tacoma, sans-serif }
+LI				{ font: 9pt verdana, tacoma, sans-serif }
+*/
+TD, P, OL, UL, LI, TABLE TH{ font: 9pt verdana, tacoma, sans-serif }
+B				{ font: 9pt verdana, tacoma, sans-serif; color: #330066; font-weight: bold }
+.black			{ font: 9pt verdana, tacoma, sans-serif; color: #000000; font-weight: bold }
+B.red			{ font: 9pt verdana, tacoma, sans-serif; color: #990000; font-weight: bold }
+B.white		{ font: 9pt verdana, tacoma, sans-serif; color: #FFFFFF; font-weight: bold }
+B.bigwhite	{ font: 10pt verdana, tacoma, sans-serif; color: #FFFFFF; font-weight: bold }
+.small			{ font: 7pt verdana, tacoma, sans-serif; color: #000000 }
+
+B.header 	{ font: 12pt verdana, tacoma, sans-serif; color: #330066; font-weight: bold }
+
+input	{ font: 7pt verdana, tacoma, sans-serif }
+input.text	{ font: 7pt verdana, tacoma, sans-serif; width: 200px }
+.select	{ font: 7pt verdana, tacoma, sans-serif; width: 200px }
+.select_normal_width	{ font: 7pt verdana, tacoma, sans-serif }
+input.submit, button.submit	{ font: 7pt verdana, tacoma, sans-serif; background-color: SlateGray ; color: white; font-weight: bold; width: auto}
+input.submit_big, button.submit_big { font: 12pt verdana, tacoma, sans-serif; background-color: SlateGray ; color: white; font-weight: bold; width: auto; padding:1em; margin:1em}
+input.submit_medium, button.submit_medium { font: 9pt verdana, tacoma, sans-serif; background-color: SlateGray ; color: white; font-weight: bold; width: auto; padding:0.5em 1em 0.5em 1em; margin:.5em}
+input.submit_medium_red, button.submit_medium_red { font: 9pt verdana, tacoma, sans-serif; background-color: red; color: white; font-weight: bold; width: auto; padding:0.5em 1em 0.5em 1em; margin:.5em }
+input.submit_normal, button.submit_normal	{ font: 7pt verdana, tacoma, sans-serif; background-color: SlateGray ; color: white; font-weight: bold;}
+input.new, button.new { background-color: YellowGreen }
+input[type="submit"][disabled]:active,
+input[type="submit"][disabled] { background-color: #AAAAAA; color: gray; font-weight: bold; }
+
+.disabled, input[disabled], select[disabled], textarea[disabled], input[readonly], input[readonly='readonly'], select[readonly], select[readonly='readonly'], textarea[readonly] { background-color: transparent;
+ color: #000; font-weight: bold; border: none}
+
+input.checkbox	{ font: 9pt verdana, tacoma, sans-serif; width: 13px}
+.textarea	{ font: 7pt verdana, tacoma, sans-serif; width: 200px; height: 32px}
+
+
+input.button	{ font: 8pt verdana, tacoma, sans-serif; background-color: #7AB829; color: white; font-weight: bold; width: 90px}
+input.button_pop	{ font: 7pt verdana, tacoma, sans-serif; background-color: #9966CC; color: white; font-weight: bold; width: 70px}
+
+.input-box { margin: 6px 0 6px 0; }
+label.w6 { width: 15em; float:left; text-align: right; margin: 5px 1em 5px 0; }
+
+.status_header { padding:.5em; font-size:2.5em; font-weight:bold; }
+
+/* 7AB829 */
+
+table.outer { padding:1px; border-spacing:0px; border:0px; background-color:#9966CC }
+table.middle { padding:10px; border-spacing:0px; border:0px; background-color:#F3E7FD }
+table.inner{ padding:3px; border-spacing:0px; border:0px; background-color:#F3E7FD }
+table.batch_sheet { 
+	border-collapse:collapse;
+	empty-cells:show;
+	padding:2px;
+	text-align:right;
+	border-style:solid;
+    border-width:2px;
+    border-color:#FFFFFF;
+}
+
+table.bounding { border-spacing:0px; border:2px solid SlateGray; background-color:WhiteSmoke;}
+tr.padded { 
+	padding:13px;
+	border-color:WhiteSmoke;
+	border-collapse:separate;
+	border-style:solid;  
+	border-width:1px;}
+
+td.padded { padding:13px }
+
+td.batch_sheet_padded { 
+	padding:15px 3px 15px 3px;
+	empty-cells:show;
+	border-color:WhiteSmoke;
+	border-collapse:collapse;
+	border-style:solid;  
+	border-width:2px;
+	}
+
+	td.batch_sheet_padded_nowrap { 
+	padding:15px 3px 15px 3px;
+	empty-cells:show;
+	border-color:WhiteSmoke;
+	border-collapse:collapse;
+	border-style:solid;  
+	border-width:2px;
+	white-space:nowrap;
+	}
+.alert { color:red }
+
+/* Scrolling body of table */
+div.tableContainerNarrow { clear: both; overflow: auto; width: 52.3em }
+html>body div.tableContainerNarrow { overflow: hidden; width: 52.3em }
+div.tableContainerWide { clear: both; overflow: auto; width: 57.5em }
+html>body div.tableContainerWide { overflow: hidden; width: 57.5em }
+div.tableContainer table { float: left; }
+html>body div.tableContainer table {  }
+thead.fixedHeader tr { position: relative }
+html>body thead.fixedHeader tr { display: block }
+thead.fixedHeader th {  font-weight: normal; border-right: solid 1px; padding: 2px 3px 3px 4px; text-align: center}
+html>body tbody.scrollContent { display: block; height: 3em; overflow: auto; width: 100% }
+tbody.scrollContent td, tbody.scrollContent tr.normalRow td { background: #F3E7FD;  border-right: solid 1px; padding: 0px 3px 0px 4px }
+tbody.scrollContent tr.alternateRow td { background: whitesmoke; border-right: solid 1px; padding: 0px 3px 0px 4px }
+.last { border:none }
+html>body thead.fixedHeader th { width: 6em }
+html>body thead.fixedHeader th + th { width: 13em }
+html>body thead.fixedHeader th + th + th { width: 13em }
+html>body thead.fixedHeader th + th + th + th { width: 5em }
+html>body thead.fixedHeader th + th + th + th + th { width: 5em }
+html>body thead.fixedHeader th + th + th + th + th + th { width: 5em }
+html>body thead.fixedHeader th + th + th + th + th + th + th { width: 4.5em }
+html>body tbody.scrollContent td { width: 6em }
+html>body tbody.scrollContent td + td { width: 13em }
+html>body tbody.scrollContent td + td + td { width: 13em }
+html>body tbody.scrollContent td + td + td + td { width: 5em }
+html>body tbody.scrollContent td + td + td + td + td { width: 5em }
+html>body tbody.scrollContent td + td + td + td + td + td { width: 5em }
+html>body tbody.scrollContent td + td + td + td + td + td + td { width: 4.5em; text-align:center }
+
+.main {font-weight:bold; font-size:12pt; color:#99cc33}
+.section {font-weight:bold; font-size:10pt; color:#99cc33}
+.readOnly { border-width:0px; background-color:transparent; color:black; font-size:12px; font-weight:normal;}
+.abelei_samll { 
+	color:red;
+	font-weight:900;
+	font-size:small; 
+	font-family:"Century Gothic" ;
+}
+
+img, a img {
+  border: none;
+  padding: 1px;
+}
+a:hover img {
+  border: none;
+}
+

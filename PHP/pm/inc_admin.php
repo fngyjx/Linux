@@ -1,0 +1,69 @@
+		<A HREF="front_desk_admin.php">Front desk</A><BR><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="7"><BR>
+		<A HREF="projects.php">Project Log<!-- &#151;ADMIN --></A><BR><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="7"><BR>
+		<A HREF="projects_history.php">Completed</A><BR><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="21"><BR>
+
+		<A HREF="project_info.php?new=1">Create new project</A><BR><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="7"><BR>
+
+
+		<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+			<TR><FORM METHOD="post" ACTION="project_info.php">
+				<TD>Revise project:</TD>
+				<TD><IMG SRC="images/spacer.gif" WIDTH="10" HEIGHT="1"></TD>
+				<TD>
+
+				<?php
+
+				$sql = "SELECT * FROM projects LEFT JOIN clients USING(client_id) LEFT JOIN companies USING(company_id) WHERE status = 4 ORDER BY project_id" . $filter;   // AND salesperson = " . $_SESSION['user_id'] . "
+				$result = mysql_query($sql, $link);
+
+				if ( mysql_num_rows($result) > 0 ) {
+					?> <SELECT NAME="revision" STYLE="font-size:7pt"> <?php
+					while ( $row = mysql_fetch_array($result) ) {
+						echo "<OPTION VALUE='" . $row['project_id'] . "'>" . substr($row['project_id'], 0, 2) . "-" . substr($row['project_id'], -3) . " - " . $row['company'] . "</OPTION>";
+					}
+					?> </SELECT> <INPUT TYPE="submit" VALUE="Go" STYLE="font-size:7pt"> <?php
+				}
+				else {
+					echo "<I>None available</I>";
+				}
+
+				?>
+
+				 </TD>
+			</TR></FORM>
+
+			<TR>
+				<TD COLSPAN=3><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="7"></TD>
+			</TR>
+
+			<TR><FORM METHOD="post" ACTION="project_info.php">
+				<TD>Resample project:</TD>
+				<TD><IMG SRC="images/spacer.gif" WIDTH="10" HEIGHT="1"></TD>
+				<TD>
+
+				<?php
+
+				$sql = "SELECT * FROM projects LEFT JOIN clients USING(client_id) LEFT JOIN companies USING(company_id) WHERE status = 4 ORDER BY project_id" . $filter;   // AND salesperson = " . $_SESSION['user_id'] . "
+				$result = mysql_query($sql, $link);
+
+				if ( mysql_num_rows($result) > 0 ) {
+					?> <SELECT NAME="resample" STYLE="font-size:7pt"> <?php
+					while ( $row = mysql_fetch_array($result) ) {
+						echo "<OPTION VALUE='" . $row['project_id'] . "'>" . substr($row['project_id'], 0, 2) . "-" . substr($row['project_id'], -3) . " - " . $row['company'] . "</OPTION>";
+					}
+					?> </SELECT> <INPUT TYPE="submit" VALUE="Go" STYLE="font-size:7pt"> <?php
+				}
+				else {
+					echo "<I>None available</I>";
+				}
+
+				?>
+
+				</TD>
+			</TR></FORM>
+		</TABLE><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="21"><BR>
+
+
+		<A HREF="users.php">Users</A><BR><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="7"><BR>
+		<A HREF="choose_client.php">Clients</A><BR><IMG SRC="images/spacer.gif" WIDTH="1" HEIGHT="7"><BR>
+		<A HREF="choose_company.php">Companies</A>

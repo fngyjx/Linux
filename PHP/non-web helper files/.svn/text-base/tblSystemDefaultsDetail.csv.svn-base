@@ -1,0 +1,132 @@
+﻿1;Liquid - Ethyl Alcohol;2.00;;5;0
+1;Liquid - MCT;0.40;;4;0
+1;Liquid - PG;0.40;;1;0
+1;Liquid - VegOil;0.40;;3;0
+1;Liquid - Water;0.40;;2;0
+1;Plated - Abelei;0.35;;6;0
+1;Plated - Dutch;0.30;;7;0
+1;Plated - Oxy;0.39;;8;0
+1;Resale;0.00;;11;0
+1;Spray Dry - HBT;3.10;;9;0
+1;Spray Dry - QIC;1.10;;10;0
+2;0;4.00;;1;0
+2;1000 - 3500;1.21;;3;0
+2;other;0.00;;5;0
+2;over 3500;1.09;;4;0
+2;under 1000;1.31;;2;0
+3;Abelei;0.50;;2;0
+3;HB Taylor;0.25;;4;0
+3;0ne;0.00;;1;0
+3;Other;0.00;;7;0
+3;Oxydry;0.28;;3;0
+3;Saratoga;0.00;;6;0
+4;ALC;1.70;;2;0
+4;Liquid - PG;0.00;0.5;1;0
+4;0nALC;0.39;;3;0
+4;Other;0.00;;4;0
+5;Packaging Costs;0.05;;1;0
+6;Shipping Costs;0.10;;1;0
+8;Abelei;0.00;;1;0
+8;HB Taylor;0.00;;3;0
+8;Other;0.00;;5;0
+8;OxyDry;0.00;;2;0
+8;Saratoga;0.00;;4;0
+9;Net - 30 days;0.00;;1;0
+10;0.5 Gallon Jug;0.00;;1;0
+10;100 lb. Fiber Drums;0.00;;7;0
+10;1-Gallon Jug;0.00;;2;0
+10;200 lb. Fiber Drums;0.00;;8;0
+10;35 lb. Fiber Boxes;0.00;;0;0
+10;50 lb. Boxes;0.00;;6;0
+10;55 gallon straight side drum;0.00;;5;0
+10;5-Gallon open head pail;0.00;;4;0
+10;5-Gallon Pail w/reicke spout;0.00;;3;0
+13;O.S.;0.00;;1;0
+13;PLATED;0.00;;2;0
+13;SD;0.00;;3;0
+13;W.S.;0.00;;4;0
+14;D;0.00;;1;0
+14;K;0.00;;2;0
+14;N;0.00;;3;0
+15;"\"\"";0.00;;0;0
+15;Artificial;0.00;;1;0
+15;N&A;0.00;;2;0
+15;Natural;0.00;;3;0
+15;Q;0.00;;4;0
+16;grams;0.00;;0;0
+16;kg;0.00;;0;0
+16;lbs;0.00;;0;0
+16;N/A;0.00;;0;0
+17;1 Gallon Jug;0.00;;11;0
+17;1 kilo container;0.00;;3;0
+17;10 kilo pail;0.00;;5;0
+17;100 gram container;0.00;;7;0
+17;100 lb. Fibre drums;0.00;;10;0
+17;15 kilo pail;0.00;;6;0
+17;18 kilo pail;0.00;;15;0
+17;2 Kilo Container;0.00;;13;0
+17;25 gram container;0.00;;0;0
+17;25 kilo carton;0.00;;16;0
+17;25 kilo fibre drum;0.00;;8;0
+17;25 lb pail;0.00;;14;0
+17;250 gram container;0.00;;12;0
+17;30 lb. Bag;0.00;;17;0
+17;5 gallon pail;0.00;;2;0
+17;5 kilo pail;0.00;;4;0
+17;50 gram container;0.00;;0;0
+17;50 kilo fibre drum;0.00;;9;0
+17;50 lb. bag;0.00;;0;0
+17;50 lb. Poly lined carton;0.00;;18;0
+17;500 gram container;0.00;;0;0
+17;55 gallon drum;0.00;;1;0
+18;MANUAL ADJUSTMENT:;0.00;;1;0
+18;SPRAY DRY LOSS:;0.00;;0;0
+19;Airborne;0.00;;3;0
+19;Brink;0.00;;10;0
+19;C & K;0.00;;9;0
+19;Christian Freight;0.00;;7;0
+19;Common Carrier;0.00;;8;0
+19;Customer Pick UP;0.00;;11;0
+19;DHL;0.00;;4;0
+19;Fed Ex;0.00;;1;0
+19;Old Dominion;0.00;;12;0
+19;Taxair;0.00;;5;0
+19;Triair;0.00;;6;0
+19;UPS Ground;0.00;;2;0
+20;Lab;0.00;;2;1
+20;Lab Fridge;0.00;;5;1
+20;Oxy Dry;0.00;;6;0
+20;RM Room;0.00;;3;1
+20;Walk-in Cooler;0.00;;4;1
+20;Warehouse;0.00;;1;1
+21;Broken boxes;0.00;;2;0
+21;Good;0.00;;1;0
+21;Leaking drum or pail;0.00;;4;0
+21;Missing Documents;0.00;;3;0
+21;Partial Damage;0.00;;5;0
+22;250-G Jacketed Kettle;0.00;;6;0
+22;250-G Tote;0.00;;4;0
+22;50-G Wheels;0.00;;3;0
+22;55-G Drum;0.00;;2;0
+22;5-G Pail;0.00;;1;0
+22;Ribbon Blender;0.00;;7;0
+22;Stainless Steel mix pot;0.00;;5;0
+23;Liquid - Ethyl Alcohol;0.00;one 5-Gallon Pail;5;0
+23;Liquid - MCT;0.00;one 5-Gallon Pail;4;0
+23;Liquid - PG;0.00;one 5-Gallon Pail;1;0
+23;Liquid - VegOil;0.00;one 5-Gallon Pail;3;0
+23;Liquid - Water;0.00;one 5-Gallon Pail;2;0
+23;Plated - Abelei;0.00;100 pounds;6;0
+23;Plated - Dutch;0.00;100 pounds;7;0
+23;Spray Dry - HBT;0.00;300 pounds;8;0
+23;Spray Dry - QIC;0.00;300 pounds;9;0
+24;Liquid - Ethyl Alcohol;0.00;5-Gallon Pail w/reicke spout;5;0
+24;Liquid - MCT;0.00;5-Gallon Pail w/reicke spout;4;0
+24;Liquid - PG;0.00;5-Gallon Pail w/reicke spout;1;0
+24;Liquid - VegOil;0.00;5-Gallon Pail w/reicke spout;3;0
+24;Liquid - Water;0.00;5-Gallon Pail w/reicke spout;2;0
+24;Plated - Abelei;0.00;50 lb. Boxes;6;0
+24;Plated - Dutch;0.00;50 lb. Boxes;7;0
+24;Plated - Oxy;0.00;50 lb. Boxes;8;0
+24;Spray Dry - HBT;0.00;50 lb. Boxes;9;0
+24;Spray Dry - QIC;0.00;50 lb. Boxes;10;0

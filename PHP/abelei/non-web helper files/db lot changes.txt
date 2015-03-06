@@ -1,0 +1,13 @@
+Changes to DB
+new tables
+lots
+receipts
+
+Edited tables
+batchsheetdetaillotnumbers
+batchsheetpackaginglotnumbers
+purchaseorderdetail
+inventorymovements
+
+deprecated tables
+lots_and_receipts

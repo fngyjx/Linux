@@ -1,0 +1,9 @@
+BatchSheetMaster
+BatchSheetNumber|ProductNumberExternal|ProductNumberInternal|ProductDesignation|CustomerID|DueDate|DateManufactured|ExpirationDate|QCDate|QCPerformedBy|NetWeight|TotalQuantity|TotalQuantityUnitType|Column1UnitType|Column2UnitType|Filtered|Allergen|Kosher|NumberOfTimesToMake|MadeBy|Yield|abeleiLotNumber|LotSequenceNumber|Vessel|Notes|ScaleNumber|CommitedToInventory|Manufactured|InventoryMovementTransactionNumber|InventoryMovementRemarks|QCDateOfStandard|QCLotNumberofStandard|QCCofAAvailable|QCCofAStandardAvailable|QCColor|QCOdor|QCGranulation|QCBrix|QCMethodForOrganolepticEvaluation|QCOrganolepticOberservations|QCMicrobiologicalReportNeeded|QCMicrobiologicalReportDate|QCMicrobiologicalReportMeetsSpecs|QCMicrobiologicalReportDoesNotMeetSpecs|QCProductMeetsAllSpecs|QCComments|SizeOfRetainTaken|QCMoisture|QCPackagingTypeAndSize|QCActualSpecificGravity
+793|361a05|209346|Natural Garlic Flavor - O.S.|5005|3/29/2009|3/19/2009|3/1/2011|3/18/2009|Brandon Olson|40.00|0.00|lbs|lbs|grams|Yes||N/A|1|Colin|98.00%|GALIC|1|55-G Drum|BINGO|123,123a|Yes|Yes|6562|Wong||||||||||||||||||||
+794|361a05|209346|Natural Garlic Flavor - O.S.|5005||||||40.00|0.00|lbs|lbs|grams|Yes||N/A|1||98.00%||1|55-G Drum|BINGO||No|No|0|||||||||||||||||||||
+
+BatchSheetDetail
+BatchSheetNumber|IngredientProductNumber|IngredientSEQ|IngredientNumberExternal|IngredientDesignation|Intermediary|Percentage|RawMaterialLotNumbers|SubBatchSheetNumber|FEMA_NBR|VendorID
+793|104830|1.00||Garlic, Fried|No|100|Colin Vend-GARL-1|0||2576
+794|104830|1.00||Garlic, Fried|No|100||0||2576

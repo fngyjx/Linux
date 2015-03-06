@@ -1,0 +1,17 @@
+inventorymovements
+	MovementStatus - C, D, P, R - Committed, Deleted, Pending, Reserved
+	TrasactionType - 
+		1 receipt from vendor
+		2 	shipment to customer
+		3 	usage for samples
+		4 	destroyed inventory
+		5 	ship to copacker
+		6 	receipt from copacker
+		7 	inventory adjustment
+		8 	manufacturing
+		9 	manufactured
+		
+SELECT BatchSheetCustomerInfo.BatchSheetNumber, BatchSheetCustomerInfo.PackIn, BatchSheetCustomerInfo.NumberOfPackages FROM BatchSheetCustomerInfo WHERE ((BatchSheetCustomerInfo.BatchSheetNumber)=" & BatchSheetNumber & " )"
+
+
+Manufactured

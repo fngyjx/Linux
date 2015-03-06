@@ -1,0 +1,94 @@
+TO DO:
+PO - Qty Ent. should be Qty Ordered and should be a read-only field calculated on Qty * Pack Size
+
+
+RECEIPTS
+Change to update based on ID, not on Lot/lotsequence.
+Selected PO should populate other fields based on Qty in PO minus amount already pending and received for that PO in inventory/lots
+
+Overview of noticings:
+
+Flavors and Materials:
+flavors_formulations.php?action=edit&update=1&pne=195a12
+	specific gravity - how many decimal places? and should units be drop down?
+
+flavors_materials.php?action=edit&ProductNumberInternal=100010
+	possibly units fields:
+		packaging? (no)
+		specific gravity units? - yes
+		Weight per gallon units - yes
+	Formula Listing Button - Mike? report?
+	What does Replace do? nothing
+
+Customers:
+pop_add_price_tier.php?VendorID=2578&ProductNumberInternal=102140&Tier=1
+	units drop down? - volume
+	
+customers_customer_order_shipping.php
+	edit line items units drop down
+	finalize date picker in disabled mode line 1378
+	
+notes on batch sheets
+	you need to drive more data off of the Customer order and/or allow an easier way to see how much is on the order.
+	Error using pack in material - not all pck ins are in DB
+	Select customer order needs a save button after save - or edit button with disabled fields
+	*Add Y or N next to each line item ingredient based on current amount on hand between Percentage and Vendor
+	PRINT?
+	
+	Customer Orders
+	product pack in is drop down from masterdetail
+	
+	specific gravity is always grams/ml
+	* Specific gravity * (weight of water [8.34lbs]) = x lbs/gal
+	* just display the number when choosing.
+	
+	add column of open and closed
+	
+	add abelei lot number saving logic to batch sheets
+	
+	
+	User Priveliges
+	Admin (all)
+	Sales, Lab, Front Desk, [QC]
+	
+	Front Desk
+		Admin, Fron desk
+	Project Management (*)
+		ALL
+	Completed (*)
+		user by user
+	Flavors-->Formulations
+		Lab
+	Flavors-->Materials
+		Lab, Front Desk
+	Flavors-->Materials Pricing
+		Lab, Front Desk
+	Flavors-->QC Formulas
+		Lab
+	Flavors-->Regulatory
+		Lab, QC
+	Customer-->Quotes
+		Admin
+	Customer-->Orders/Shipping
+		Admin, Front Desk
+	Customer-->atch Sheets
+		Admin
+	Customer-->Customers (*)
+		Sales only see certain
+	Customer-->Contacts (*)
+		Sales only see certain
+	Vendors-->POs
+		QC
+	Vendors-->reciepts/lots
+		QC
+	Vendors-->Vendors
+		Admin, Lab, QC
+	Vendors-->Vendor Contacts
+		Admin, Lab, QC
+	Inventory
+		Admin
+	Management Reports
+		Admin
+	Admin
+		Admin
+	

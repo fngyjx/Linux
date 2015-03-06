@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<fileattr>
+  <directory>
+    <owner>John Du</owner>
+    <acl user="owner">
+      <all/>
+    </acl>
+    <acl user="admin">
+      <all/>
+    </acl>
+    <acl>
+      <all deny="1"/>
+    </acl>
+  </directory>
+</fileattr>

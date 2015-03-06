@@ -1,0 +1,72 @@
+^XA
+^POI
+^FXBELOW, REVERSED First Sample Lable - Z6M^FS
+^FO80,600^A0R,60,60^FDNET WEIGHT: 43 LBS^FS
+^FO170,300^A0R,45,48^FDNon - Flavor Ingredients: Propylene Glycol^FS
+^FO250,300^A0R,45,48^FDa reliable publichsed industry association list.^FS
+^FO295,300^A0R,45,48^FDAdministration and are listed generally recognized as safe on^FS
+^FO340,300^A0R,45,48^FDare approved for use by a regulation of the Food & Drug^FS
+^FO385,300^A0R,45,48^FDLabel Declaration: All ingredients contained in this product^FS
+^FO440,300^A0R,50,60^FDExpiration Date: 11-12-11^FS
+^FO490,300^A0R,50,60^FDDate of Manufacture: 11-12-10^FS
+^FO540,300^A0R,50,60^FDLot#: 101112-3-1^FS
+^FO590,300^A0R,50,60^FDP.O.#: 129860^FS
+^FO660,651^A0R,60,60^FD*Shake Well Before Use*^FS
+^FO780,438^A0R,105,94^FDN&A GRAPE HI-C  FLAVOR^FS
+^FO900,723^A0R,135,132^FDUS-G230^FS
+^FXKOSHER MARK
+^FO500,1340^GD200,115,10,B,L^FS
+^FO500,1455^GD200,115,10,B,R^FS
+^FO500,1338^GB0,234,5^FS
+^FO560,1410^A0R,60,62^FDcRc^FS
+^FO460,1440^AFR,26,13^FD29^FS
+^FS
+^XZ
+^XA
+^POI
+^FXBELOW, REVERSED First Sample Lable - Z6M^FS
+^FO80,600^A0R,60,60^FDNET WEIGHT: 43 LBS^FS
+^FO170,300^A0R,45,48^FDNon - Flavor Ingredients: Propylene Glycol^FS
+^FO250,300^A0R,45,48^FDa reliable publichsed industry association list.^FS
+^FO295,300^A0R,45,48^FDAdministration and are listed generally recognized as safe on^FS
+^FO340,300^A0R,45,48^FDare approved for use by a regulation of the Food & Drug^FS
+^FO385,300^A0R,45,48^FDLabel Declaration: All ingredients contained in this product^FS
+^FO440,300^A0R,50,60^FDExpiration Date: 11-12-11^FS
+^FO490,300^A0R,50,60^FDDate of Manufacture: 11-12-10^FS
+^FO540,300^A0R,50,60^FDLot#: 101112-3-1^FS
+^FO590,300^A0R,50,60^FDP.O.#: 129860^FS
+^FO660,651^A0R,60,60^FD*Shake Well Before Use*^FS
+^FO780,438^A0R,105,94^FDN&A GRAPE HI-C  FLAVOR^FS
+^FO900,723^A0R,135,132^FDUS-G230^FS
+^FXKOSHER MARK
+^FO500,1340^GD200,115,10,B,L^FS
+^FO500,1455^GD200,115,10,B,R^FS
+^FO500,1338^GB0,234,5^FS
+^FO560,1410^A0R,60,62^FDcRc^FS
+^FO460,1440^AFR,26,13^FD29^FS
+^FS
+^XZ
+^XA
+^POI
+^FXBELOW, REVERSED First Sample Lable - Z6M^FS
+^FO80,600^A0R,60,60^FDNET WEIGHT: 43 LBS^FS
+^FO170,300^A0R,45,48^FDNon - Flavor Ingredients: Propylene Glycol^FS
+^FO250,300^A0R,45,48^FDa reliable publichsed industry association list.^FS
+^FO295,300^A0R,45,48^FDAdministration and are listed generally recognized as safe on^FS
+^FO340,300^A0R,45,48^FDare approved for use by a regulation of the Food & Drug^FS
+^FO385,300^A0R,45,48^FDLabel Declaration: All ingredients contained in this product^FS
+^FO440,300^A0R,50,60^FDExpiration Date: 11-12-11^FS
+^FO490,300^A0R,50,60^FDDate of Manufacture: 11-12-10^FS
+^FO540,300^A0R,50,60^FDLot#: 101112-3-1^FS
+^FO590,300^A0R,50,60^FDP.O.#: 129860^FS
+^FO660,651^A0R,60,60^FD*Shake Well Before Use*^FS
+^FO780,438^A0R,105,94^FDN&A GRAPE HI-C  FLAVOR^FS
+^FO900,723^A0R,135,132^FDUS-G230^FS
+^FXKOSHER MARK
+^FO500,1340^GD200,115,10,B,L^FS
+^FO500,1455^GD200,115,10,B,R^FS
+^FO500,1338^GB0,234,5^FS
+^FO560,1410^A0R,60,62^FDcRc^FS
+^FO460,1440^AFR,26,13^FD29^FS
+^FS
+^XZ

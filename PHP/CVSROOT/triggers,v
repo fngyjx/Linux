@@ -1,0 +1,36 @@
+head     1.1;
+access   ;
+symbols ;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2009.10.20.01.19.18;  author John Du;  state Exp;
+branches;
+next     ;
+kopt   kv;
+deltatype   text;
+permissions	666;
+commitid	c0c4add10150814;
+filename	triggers;
+
+desc
+@@
+
+
+
+1.1
+log
+@initial checkin@
+text
+@# The "triggers" file lists libraries which handle the events for each
+# module.
+#
+# A line enclosed in {....} will be treaded as a COM object.  You can use either
+# the ClassId or the ProgId
+#
+# In addition to the lines here, the default_trigger library is loaded, if available.
+#
+@
+

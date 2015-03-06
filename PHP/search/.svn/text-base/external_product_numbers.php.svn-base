@@ -1,0 +1,56 @@
+<?php
+
+include('../inc_ssl_check.php');
+session_start();
+
+if ( !isset($_SESSION["uLoggedInCookie"]) ) {
+	//header ("Location: login.php?out=1");
+	exit;
+}
+
+if ( isset($_SESSION['note']) ) {
+	$note = $_SESSION['note'];
+	unset($_SESSION['note']);
+}
+
+include('../inc_global.php');
+if (!isset($_REQUEST["q"]))
+{
+	$_REQUEST["q"] = "";
+} 
+
+$limit = 0;
+if (isset($_REQUEST["limit"]))
+{
+	if (is_numeric($_REQUEST["limit"]))
+	{
+		$limit = $_REQUEST["limit"];
+	}
+} 
+
+$q = strtolower(escape_data($_REQUEST["q"]));
+$items = array();
+
+$sql = "SELECT DISTINCT ProductMaster.ProductNumberInternal, ProductMaster.SpecificGravity, ProductMaster.SpecificGravityUnits, ProductMaster.Organic, ";
+$sql .= "ProductMaster.Natural_OR_Artificial, ProductMaster.Designation, ProductMaster.ProductType, ProductMaster.Kosher, ExternalProductNumberReference.ProductNumberExternal ";
+$sql .= "FROM ExternalProductNumberReference RIGHT JOIN ProductMaster ON ExternalProductNumberReference.ProductNumberInternal = ProductMaster.ProductNumberInternal ";
+$sql .= "WHERE ExternalProductNumberReference.ProductNumberExternal LIKE '%$q%' ";
+$sql .= "ORDER BY ExternalProductNumberReference.ProductNumberExternal";
+$sql .= (0 != $limit ? " LIMIT $limit" : "");
+
+$result = mysql_query($sql, $link);
+$result_count = mysql_num_rows($result);
+
+
+if (0 < $result_count)
+{
+	while ( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) {
+		    $description = ("" != $row['Natural_OR_Artificial'] ? $row['Natural_OR_Artificial']." " : "");
+		    $description .= escape_data($row['Designation']);
+		    $description .= ("" != $row['ProductType'] ? " - ".$row['ProductType'] : "");
+		    $description .= ("" != $row['Kosher'] ? " - ".$row['Kosher'] : "");
+		    $description .= ",&nbsp;&nbsp; Internal#: ".$row["ProductNumberInternal"];		
+			echo $row["ProductNumberExternal"]."&nbsp;&nbsp;&nbsp;&nbsp;".escape_data($description)."\n";
+	}
+}
+?>

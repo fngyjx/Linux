@@ -1,0 +1,584 @@
+<?php
+/**
+ * production_batch_sheet_excelinc.php
+ *
+ * Copyright (C) 2009 ZhongqiuDu.com
+ *
+ */
+
+/** Error reporting */
+error_reporting(E_ALL);
+
+/** PHPExcel */
+require_once dirname(__FILE__) . '/../PHPExcel.php';
+
+/** PHPExcel_RichText */
+require_once dirname(__FILE__) . '/../PHPExcel/RichText.php';
+
+// Create new PHPExcel object
+//echo date('H:i:s') . " Create new PHPExcel object\n";
+$objPHPExcel = new PHPExcel();
+
+// Set properties
+//echo date('H:i:s') . " Set properties\n";
+$objPHPExcel->getProperties()->setCreator("John Du")
+							 ->setLastModifiedBy("John Du")
+							 ->setTitle("Customer Order Number" . $order_num)
+							 ->setSubject("Packing List")
+							 ->setDescription("Packing List, generated using PHP classes.")
+							 ->setKeywords("Packing List")
+							 ->setCategory("Abelei Product");
+
+
+// Create a sheet and adding bsdata
+//echo date('H:i:s') . " Add some data\n";
+$objPHPExcel->setActiveSheetIndex(0);
+
+$styleThinBlackBorderOutline = array(
+	'borders' => array(
+		'outline' => array(
+			'style' => PHPExcel_Style_Border::BORDER_THIN,
+			'color' => array('argb' => 'FF000000'),
+		),
+	),
+);
+$styleMediumBlackBorderOutline = array(
+	'borders' => array(
+		'outline' => array(
+			'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
+			'color' => array('argb' => 'FF000000'),
+		),
+		'font'	=> array(
+				'bold'	=> true,
+				'size'	=> 9
+		),
+	),
+);
+
+$objRichText = new PHPExcel_RichText( $objPHPExcel->getActiveSheet()->getCell('A1') );
+$objRichText->createText('Production Batch Sheet #:  '. $bsn);
+$objPHPExcel->getActiveSheet()->getStyle('A1:K1')->applyFromArray(
+		array(
+			'font'    => array(
+				'bold'      => true,
+				'size'	=> 10
+			),
+			'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			),
+		)
+);
+
+$objPHPExcel->getActiveSheet()->mergeCells('A1:K1');
+
+$ProductDesignationStr = "Formula For: ";
+$ProductDesignationStr .= $ProductDesignation;
+
+$ProductDesignationStr = str_replace('è','e',$ProductDesignationStr);
+$objPHPExcel->getActiveSheet()->setCellValue('A2', $ProductDesignationStr);
+$objPHPExcel->getActiveSheet()->mergeCells('A2:D2');
+
+$objPHPExcel->getActiveSheet()->setCellValue('E2', '- Abelei#: ' . $ProductNumberExternal );
+$objPHPExcel->getActiveSheet()->mergeCells('E2:G2');
+
+$objPHPExcel->getActiveSheet()->setCellValue('H2', 'Internal#: ' . $ProductNumberInternal );
+$objPHPExcel->getActiveSheet()->mergeCells('H2:J2');
+
+$objPHPExcel->getActiveSheet()->setCellValue('K2', 'Scale(' .$ScaleNumber .')' );
+
+$objPHPExcel->getActiveSheet()->setCellValue('E3', 'Make ' .$NumberOfTimesToMake . ' TIME');
+$objPHPExcel->getActiveSheet()->mergeCells('E3:G3');
+
+$objPHPExcel->getActiveSheet()->setCellValue('H3', 'Allergen:' . $Allergen);
+$objPHPExcel->getActiveSheet()->mergeCells('H3:K3');
+
+$objPHPExcel->getActiveSheet()->getStyle('D3:K3')->GetAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+//$Vessel = " 250-G Jacketed Kettel";
+$objPHPExcel->getActiveSheet()->setCellValue('E4', 'Vessel:' . $Vessel );
+$objPHPExcel->getActiveSheet()->mergeCells('E4:K4');
+
+$Units = $TotalQuantityUnitType;
+$GrossWeight = $NetWeight/$Yield;
+//$NetWeight = 1410;
+$GWeight = number_format($GrossWeight,2) ;
+$NWeight = number_format($NetWeight,2);
+$objPHPExcel->getActiveSheet()->setCellValue('A5', 'Gross Weight: '. number_format($GrossWeight,2) . $Units);
+$objPHPExcel->getActiveSheet()->mergeCells('A5:C5');
+
+$objPHPExcel->getActiveSheet()->setCellValue('E5', 'Net Weight: '. number_format($NetWeight,2) . $Units);
+$objPHPExcel->getActiveSheet()->mergeCells('E5:K5');
+
+$objPHPExcel->getActiveSheet()->getStyle('A2:K5')->applyFromArray($styleMediumBlackBorderOutline);
+
+$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Seq#');
+$objPHPExcel->getActiveSheet()->getStyle('A6')->applyFromArray($styleMediumBlackBorderOutline);
+
+$objPHPExcel->getActiveSheet()->setCellValue('B6', 'Ingredient');
+$objPHPExcel->getActiveSheet()->mergeCells('B6:C6');
+$objPHPExcel->getActiveSheet()->getStyle('B6:C6')->applyFromArray($styleMediumBlackBorderOutline);
+$objPHPExcel->getActiveSheet()->setCellValue('D6', 'Vendor');
+$objPHPExcel->getActiveSheet()->getStyle('D6')->applyFromArray($styleMediumBlackBorderOutline);
+$objPHPExcel->getActiveSheet()->setCellValue('E6', '%age');
+
+$objPHPExcel->getActiveSheet()->getStyle('E6')->applyFromArray($styleMediumBlackBorderOutline);
+$objPHPExcel->getActiveSheet()->setCellValue('F6', 'Amount');
+
+$objPHPExcel->getActiveSheet()->mergeCells('F6:G6');
+$objPHPExcel->getActiveSheet()->getStyle('F6:G6')->applyFromArray($styleMediumBlackBorderOutline);
+$objPHPExcel->getActiveSheet()->setCellValue('H6', 'Amount');
+$objPHPExcel->getActiveSheet()->mergeCells('H6:I6');
+$objPHPExcel->getActiveSheet()->getStyle('H6:I6')->applyFromArray($styleMediumBlackBorderOutline);
+$objPHPExcel->getActiveSheet()->setCellValue('J6', 'Raw Material Lot#');
+
+$objPHPExcel->getActiveSheet()->getStyle('J6')->applyFromArray($styleMediumBlackBorderOutline);
+$objPHPExcel->getActiveSheet()->setCellValue('K6', 'FEMA#');
+$objPHPExcel->getActiveSheet()->getStyle('K6')->applyFromArray($styleMediumBlackBorderOutline);
+
+$sql = "SELECT batchsheetdetail. *, productmaster.FEMA_NBR, productmaster.Natural_OR_Artificial, productmaster.Organic, productmaster.Kosher, productmaster.Designation, productmaster.ProductType, vendors.name, Quantity, externalproductnumberreference.ProductNumberExternal AS pne
+FROM batchsheetdetail
+LEFT JOIN inventorymovements ON batchsheetdetail.InventoryTransactionNumber = inventorymovements.TransactionNumber
+LEFT JOIN productmaster ON batchsheetdetail.IngredientProductNumber = productmaster.ProductNumberInternal
+LEFT JOIN vendors ON vendors.vendor_id = batchsheetdetail.VendorID
+LEFT JOIN externalproductnumberreference ON batchsheetdetail.IngredientProductNumber = externalproductnumberreference.ProductNumberInternal 
+WHERE batchsheetdetail.BatchSheetNumber = " . $_REQUEST['bsn'] . "
+ORDER BY IngredientSEQ";
+
+//echo "<br />" .$sql ."<br />";
+	
+$result = mysql_query($sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sql<BR><BR>");
+$c = mysql_num_rows($result);
+$page_break = false; 
+//till now, max ingredientSEQ = 35.00. if bs has more than 13 ingredients, break page at Row =30
+//Or when the Package section starting
+if ( $c > 0 ) {
+	if ( $c > 13 )
+		$page_break = true;
+	$total = 0;
+	$i = 6;
+	while ( $row = mysql_fetch_array($result)) {
+		$i++;
+		if ( $i == 25 ) {
+			$objPHPExcel->getActiveSheet()->setBreak( 'A' . $i, PHPExcel_Worksheet::BREAK_ROW );
+			$page_break = false;
+		}
+		$ipn = $row['IngredientProductNumber'];
+		
+		if ( $row['pne'] != '' ) {
+			$abelei_num_string = " (abelei# " . $row['pne'] . ")";
+		} else {
+			$abelei_num_string = "";
+		}
+		
+		$description = ("" != $row['Natural_OR_Artificial'] ? $row['Natural_OR_Artificial']." " : "").$row['Designation'].("" != $row['ProductType'] ? " - ".$row['ProductType'] : "").("" != $row['Kosher'] ? " - ".$row['Kosher'] : "");
+
+		$objPHPExcel->getActiveSheet()->getRowDimension($i)->setRowHeight(26);
+
+		$objPHPExcel->getActiveSheet()->setCellValue('A'. $i, $row['IngredientSEQ']);
+		
+				//For lots assigned bsn, need to get lotdetail and put in the batchsheet
+		$sql = "SELECT vendors.name, CONCAT(lots.LotNumber,' - ',lots.LotSequenceNumber) AS ID, QuantityUsedFromThisLot
+			FROM batchsheetdetaillotnumbers
+			LEFT JOIN lots ON batchsheetdetaillotnumbers.LotID = lots.ID
+			LEFT JOIN vendors ON lots.VendorId = vendors.vendor_id
+			WHERE BatchSheetNumber = " . $_REQUEST['bsn'] . "
+			AND batchsheetdetaillotnumbers.IngredientProductNumber = " . $row['IngredientProductNumber'] . "
+			AND batchsheetdetaillotnumbers.IngredientSEQ = ". $row['IngredientSEQ'] ." 
+			ORDER BY QuantityUsedFromThisLot";
+			
+			$result_vend = mysql_query($sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sql<BR><BR>");
+		
+		$c = mysql_num_rows($result_vend);
+		
+		if ( $c <= 1 ) { //set border
+			$objPHPExcel->getActiveSheet()->getStyle('A'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+		}
+		
+		if ( substr($row['IngredientProductNumber'], 0, 1) == 4 ) {
+			//$ingredient_string = "<B CLASS='white'>" . $description . $abelei_num_string . "</B>";
+			$ingredient_string = $description . $abelei_num_string;
+			$objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $ingredient_string);
+			$objPHPExcel->getActiveSheet()->mergeCells('B'.$i.':K'.$i);
+			$objPHPExcel->getActiveSheet()->getStyle('B'.$i.':K'.$i)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+			$objPHPExcel->getActiveSheet()->getStyle('B'.$i.':K'.$i)->getFill()->getStartColor()->setARGB('FFFFFF99');
+			$objPHPExcel->getActiveSheet()->getStyle('B'.$i.':K'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			continue;
+			
+		} 
+		
+		$ingredient_string = $description . " - " . $row['IngredientProductNumber'] . $abelei_num_string;	
+	
+		$objPHPExcel->getActiveSheet()->setCellValue('B'.$i, '');
+	
+		$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $ingredient_string);
+
+		$objPHPExcel->getActiveSheet()->getStyle('B'.$i.':C' .$i)->getAlignment()->setWrapText(true);
+		
+		if ( $c <= 1 ) { //set border
+			$objPHPExcel->getActiveSheet()->getStyle('B'.$i.':C'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+		}
+		
+		if ( $c > 0 ) {
+			$ID = '';
+			$current_id = "";
+			$vend_start_i = $i;
+			$vend_end_i = 0;
+
+			while ( $row_vend = mysql_fetch_array($result_vend) ) {
+				$vendor_name = $row_vend['name'];
+				if ( '' == $vendor_name  ) {
+					if ('2' == substr($row['IngredientProductNumber'], 0, 1)) {
+						$vendor_name = 'Abelei';
+					} else {
+						$vendor_name = 'None entered';
+					}
+				}
+						
+				if ( $NumberOfTimesToMake > 1 ) {
+					$quantity = $row_vend['QuantityUsedFromThisLot'] / $NumberOfTimesToMake;
+				} else {
+					$quantity = $row_vend['QuantityUsedFromThisLot'];
+				}
+				
+				if ( $current_id != "")
+				{
+					$i++;
+					$vend_end_i = $i;
+					//$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, '');
+				}
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $vendor_name);
+				$objPHPExcel->getActiveSheet()->getStyle('D'.$i)->getAlignment()->setWrapText(true);
+				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, QuantityConvert($quantity,'grams',$Column1UnitType));
+				$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $Column1UnitType);
+				$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, QuantityConvert($quantity,'grams',$Column2UnitType));
+				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $Column2UnitType);
+				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $row_vend['ID']);
+				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $row['FEMA_NBR']);
+		
+				if ( $c > 1 ) {
+				  if ( $vend_end_i == ($vend_start_i + $c - 1) ) {
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$vend_start_i.':K'.$vend_end_i)->applyFromArray($styleMediumBlackBorderOutline);
+				  } else
+				  if ( $current_id == "" ) 
+					$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $row['Percentage']);
+				} else {
+					$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $row['Percentage']);
+					$objPHPExcel->getActiveSheet()->getStyle('E'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+					$objPHPExcel->getActiveSheet()->getStyle('D'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+					$objPHPExcel->getActiveSheet()->getStyle('E'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+					$objPHPExcel->getActiveSheet()->getStyle('F'.$i.':G'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+					$objPHPExcel->getActiveSheet()->getStyle('H'.$i.':I'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+					$objPHPExcel->getActiveSheet()->getStyle('J'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+					$objPHPExcel->getActiveSheet()->getStyle('K'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+				} 
+								
+				
+				//echo "<br /> i = ".$i."<br />";
+				$current_id=$row['IngredientProductNumber'];
+			}
+		} else {
+			$percentage = $row['Percentage']/100;
+			$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $row['name']);
+			$objPHPExcel->getActiveSheet()->getStyle('D'.$i)->getAlignment()->setWrapText(true);
+			$objPHPExcel->getActiveSheet()->getStyle('D'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $row['Percentage']);
+			$objPHPExcel->getActiveSheet()->getStyle('E'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, QuantityConvert($percentage*$GrossWeight,$TotalQuantityUnitType,$Column1UnitType));
+			$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $Column1UnitType);
+			$objPHPExcel->getActiveSheet()->getStyle('F'.$i.':G'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, QuantityConvert($percentage*$GrossWeight,$TotalQuantityUnitType,$Column2UnitType));
+			$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $Column2UnitType);
+			$objPHPExcel->getActiveSheet()->getStyle('H'.$i.':I'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, '');
+			$objPHPExcel->getActiveSheet()->getStyle('J'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $row['FEMA_NBR']);
+			$objPHPExcel->getActiveSheet()->getStyle('K'.$i)->applyFromArray($styleMediumBlackBorderOutline);
+			//echo "<br /> i = ".$i."<br />";
+		} //else
+	} //while row
+	$i++;
+	$statstr = "Required assuming $Yield % yield:";
+	$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $statstr);
+	$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':D'.$i);
+	$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, '=SUM(E7:E'.($i-1).')');
+	$objPHPExcel->getActiveSheet()->getStyle('E'.$i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
+	$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, '=SUM(F7:F'.($i-1).')');
+	$objPHPExcel->getActiveSheet()->getStyle('F7:F'.$i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+	$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $Column1UnitType);
+	$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, '=SUM(H7:H'.($i-1).')');
+	$objPHPExcel->getActiveSheet()->getStyle('H7:H'.$i)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+	$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $Column2UnitType);
+	$objPHPExcel->getActiveSheet()->getStyle('A7:K'.($i-1))->GetAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+}//if c>0
+$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(1);
+$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(45);
+//$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+//$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+//$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
+$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(6);
+$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(6);
+$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(12);
+$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(6);
+//$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(6);
+// echo "<br /> i at alst line=". $i ."<br />";
+//Packaging 
+
+
+if ( $page_break ) {
+	$objPHPExcel->getActiveSheet()->setBreak( 'A' . $i, PHPExcel_Worksheet::BREAK_ROW );
+}
+$sql = "SELECT DISTINCT bsdpln.*, lots.LotNumber, vendors.name
+FROM batchsheetdetailpackaginglotnumbers AS bsdpln
+LEFT JOIN lots on lots.ID=bsdpln.LotID
+LEFT JOIN vendors on lots.VendorID=vendors.vendor_id
+WHERE bsdpln.BatchSheetNumber = " . $bsn;
+
+// echo "<br /> $sql <br />";
+
+$result = mysql_query($sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sql<BR><BR>");
+$c = mysql_num_rows($result);
+$total_pks_i=$i + 1; //caculate total packages started from this line
+
+if ( $c > 0 ) { 
+	$i++;
+	//add empty row
+	$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, '');
+	$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':K'.$i);
+	$i++;
+	//Pckin header
+	$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, 'Pack In:');
+	$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':B'.$i);
+	$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, 'Packaging:');
+	$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, 'Lot#:');
+	$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, '#Packs:');
+	$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Cust Order#:');
+	$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);
+	$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, 'PO#:');
+	$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':I'.$i);
+	$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, 'Vendor:');
+	$objPHPExcel->getActiveSheet()->mergeCells('J'.$i.':K'.$i);
+	$total_pks_i=$i + 1;
+	while ( $row = mysql_fetch_array($result) ) {
+	  if ( $row['QuantityUsedFromThisLot'] > 0 ) {
+		$i++;
+		$sub_sql = "SELECT ProductNumberInternal, Designation FROM productmaster 
+			WHERE ProductNumberInternal = '". $row['PackagingProductNumber'] ."'";
+		$sub_result = mysql_query($sub_sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sub_sql<BR><BR>");
+		$sub_row = mysql_fetch_array($sub_result); 
+		$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $sub_row['Designation']);
+		$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $row['LotNumber']);
+		$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $row['QuantityUsedFromThisLot']);
+		$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $row['CustomerOrderNumber'] ."-" . $row['CustomerOrderSeqNumber']);
+		$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $row['CustomerPONumber']);
+		$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':I'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $row['name']);
+		$objPHPExcel->getActiveSheet()->mergeCells('J'.$i.':K'.$i);
+		$objPHPExcel->getActiveSheet()->getStyle('D'.$i.':K'.$i)->GetAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+	  }
+	}
+	$i++;
+	$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, ' Total Package Quantity Needed:');
+	$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':D'.$i);	
+	//echo "<br /> pks_i = $total_pks_i i= $i <br />";
+	$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, '=SUM(E'.$total_pks_i.':E'.($i-1).')');
+	$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':K'.$i)->GetAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+} else {
+	$pk_head = false;
+	$sql = "SELECT DISTINCT *
+		FROM batchsheetcustomerinfo AS bsci WHERE bsci.BatchSheetNumber = " . $bsn;
+	$result=mysql_query($sql,$link) or die ( mysql_error() . "Failed execute SQL: $sql <br />");
+	while ( $row = mysql_fetch_array($result) ) {
+	  if ( ! $pk_head ) {
+		$i++;
+		//add empty row
+		$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, '');
+		$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':K'.$i);
+		$i++;
+		//Pckin header
+		$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, 'Pack In:');
+		$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':B'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, 'Packaging:');
+		$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, 'Lot#:');
+		$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, '#Packs:');
+		$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Cust Order#:');
+		$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, 'PO#:');
+		$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':I'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, 'Vendor:');
+		$objPHPExcel->getActiveSheet()->mergeCells('J'.$i.':K'.$i);
+		$total_pks_i=$i + 1;
+		$pk_head = true;
+	  }
+	  if ( $row['PackIn'] != "" and $row['NumberOfPackages'] > 0 ){
+		$i++;
+		$sub_sql = "SELECT ProductNumberInternal, Designation FROM productmaster 
+			WHERE ProductNumberInternal = '". $row['PackIn'] ."'";
+		$sub_result = mysql_query($sub_sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sub_sql<BR><BR>");
+		$sub_row = mysql_fetch_array($sub_result); 
+		$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $sub_row['Designation']);
+		$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, '');
+		$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $row['NumberOfPackages']);
+		$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $row['CustomerOrderNumber'] ."-" . $row['CustomerOrderSeqNumber']);
+		$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $row['CustomerPONumber']);
+		$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':I'.$i);
+		$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, '');
+		$objPHPExcel->getActiveSheet()->mergeCells('J'.$i.':K'.$i);
+		$objPHPExcel->getActiveSheet()->getStyle('D'.$i.':K'.$i)->GetAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+	  } // row PAckIn != 0
+	  else if ( $row['PackInID'] != "" and $row['NumberOfPackages'] >0 ) {
+		
+			$sql_pkin="SELECT * FROM bscustomerinfopackins where PackInID in (". $row['PackInID'] .")";
+		//echo "<br />". $sql_pkin ."<br />";
+			$pkin_result = mysql_query($sql_pkin,$link) or die (mysql_error()."<br />Couldn't execute query: $sql_pkin<BR><BR>");
+			while ( $row_pkin = mysql_fetch_array($pkin_result) ) {
+	    // $total_packs = $total_packs + $row_pkin['NumberOfPackages'];
+				$i++;
+				$sub_sql = "SELECT ProductNumberInternal, Designation FROM productmaster 
+					WHERE ProductNumberInternal = '". $row_pkin['PackIn'] . "'";
+				$sub_result = mysql_query($sub_sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sub_sql<BR><BR>");
+				$sub_row = mysql_fetch_array($sub_result); 
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $sub_row['Designation']);
+				$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, '');
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $row_pkin['NumberOfPackages']);
+				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $row['CustomerOrderNumber'] ."-" . $row['CustomerOrderSeqNumber']);
+				$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);
+				$objPHPExcel->getActiveSheet()->setCellValue('H'.$i,$row['CustomerPONumber'] );
+				$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':I'.$i);
+				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, '');
+				$objPHPExcel->getActiveSheet()->mergeCells('J'.$i.':K'.$i);
+				$objPHPExcel->getActiveSheet()->getStyle('D'.$i.':K'.$i)->GetAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			
+			} //while row_pkin
+		} //row packinid != ""
+	}
+	$i++;
+	echo "<br /> pks_i = $total_pks_i i= $i <br />";
+	if ( $i != $total_pks_i ) {
+		$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, ' Total Package Quantity Needed:');
+		$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':D'.$i);	
+		
+		$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, '=SUM(E'.$total_pks_i.':E'.($i-1).')');
+		$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':K'.$i)->GetAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+	}
+}
+//E-Packaging 
+//BatchSheetMaster
+$i++; //add empty line
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, '');
+$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':K'.$i);	
+$i++;
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, ' QC Date: '. $QualityControlDate);
+$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':E'.$i);	
+
+$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Manufactured:');
+$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);	
+
+$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $DateManufactured);
+$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':K'.$i);	
+
+$i++;
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, ' QC performed by: '. $QualityControlEmployee);
+$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':E'.$i);	
+$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Made By:');
+$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);	
+$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $MadeBy);
+$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':K'.$i);	
+$i++;
+if ( $Filtered != 1 ) {
+	$Filtered = "No";
+} else {
+	$Filtered = "Yes";
+}
+$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Filtered:');
+$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);	
+$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $Filtered);
+$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':K'.$i);	
+
+//Notes - replace line breaker as period - sample bsn=1739
+$needle=array("\r\n", "\n", "\r");
+$Notes = str_replace($needle,". ",$Notes);
+$i++;
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, ' Notes: '. $Notes);
+$ip1 = $i+4;
+$objPHPExcel->getActiveSheet()->mergeCells('A'.$i.':E'.$ip1);	
+$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E' .$ip1)->getAlignment()->setWrapText(true);
+$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E' .$ip1)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+//Kosher
+$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Kosher:');
+$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);	
+$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $Kosher);
+$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':K'.$i);	
+//Lot#
+$sql="SELECT l.LotNumber AS abeleiLotNumber, l.LotSequenceNumber AS LotSequenceNumber FROM `inventorymovements` AS im, `batchsheetmaster` AS bsm, `lots` AS l ".
+"WHERE bsm.`InventoryMovementTransactionNumber` = im.`TransactionNumber` AND l.id=im.LotID AND bsm.`BatchSheetNumber` = " . $_REQUEST['bsn'];
+$result = mysql_query($sql, $link) or die (mysql_error()."<br />Couldn't execute query: $sql<BR><BR>");
+if (0 <  mysql_num_rows($result)) {
+	$row = mysql_fetch_array($result);
+	$abeleiLotNumber = $row['abeleiLotNumber'];
+	$LotSequenceNumber = $row['LotSequenceNumber'];
+} 
+else {
+	$abeleiLotNumber = "";
+	$LotSequenceNumber = "";
+}
+
+$i++;
+$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, 'Lot#:');
+$objPHPExcel->getActiveSheet()->mergeCells('F'.$i.':G'.$i);	
+$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $abeleiLotNumber . " - " .$LotSequenceNumber);
+$objPHPExcel->getActiveSheet()->mergeCells('H'.$i.':K'.$i);	
+
+//Customer Name
+$sql  = "SELECT customers.name FROM customerordermaster c, batchsheetcustomerinfo bsci,customers
+	WHERE bsci.CustomerOrderNumber = c.OrderNumber
+	AND customers.customer_id=c.CustomerID
+	AND bsci.BatchSheetNumber='".$bsn."'";
+$result = mysql_query($sql,$link) or die ( mysql_error() . " Failed execute SQL : $sql <br />");
+$c = mysql_num_rows($result);
+
+if ( $c > 0 )
+{
+	$row = mysql_fetch_array($result);
+	$CustomerName = $row[0];
+} else {
+	$CustomerName = "N/A";
+}
+
+//echo date('H:i:s') . " Set header/footer\n";
+//$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BProduction Batch Sheet #' . $bsn . '&RPrinted on &D');
+$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&LCustomer:'. $CustomerName .'; Due Date: '.$DueDate.'; &B ' . $objPHPExcel->getProperties()->getTitle() . '&RPrinted on &D Page &P of &N');
+
+// Set Page Margins
+// margin is set in inches (0.5cm)
+$margin = 0.5 / 2.54;
+$pageMargins = $objPHPExcel->getActiveSheet()->getPageMargins();
+$pageMargins->setTop($margin);
+$pageMargins->setBottom($margin);
+$pageMargins->setLeft($margin);
+$pageMargins->setRight($margin);
+
+// Set page orientation and size
+//echo date('H:i:s') . " Set page orientation and size\n";
+//$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+//if ( $break_page )
+//	$objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(false);
+//else
+//	$objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+
+// Rename sheet
+//echo date('H:i:s') . " Rename sheet\n";
+$objPHPExcel->getActiveSheet()->setTitle('BatchSheet#'.$bsn);
+
+
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+$objPHPExcel->setActiveSheetIndex(0);

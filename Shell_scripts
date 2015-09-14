@@ -24,7 +24,8 @@ Wed Jan 14 12:07:46 CST 2015
 Wed Jan 14 12:07:46 CST 2015
 Where exec >/tmp/stdout redirect stdout to the file (permanently in sub shell that command grouped with parentheses[()])
  {echo "test" 2>/dev/null >&2 ;  exec 3>&1; exec >/tmp/stdout; echo "test again" } | (date;cat;date) 2>/dev/null
-Where stdout redirection also used after the pipe because the redirection is in current shell by using braces [{}] grouping the commands.
+Where stdout redirection also used after the pipe because the redirection is in current shell by using braces [{}] grouping the commands. 
+( exec 3>&2 2>&1 #to get you stdout back to screen)
  (echo "test" 2>/dev/null >&2 ;  exec 3>&1; exec >/tmp/stdout; echo "test again"; exec >&3; echo "my test" ) | (date;cat;date) 2>/dev/null
 Wed Jan 14 07:59:58 CST 
 my test

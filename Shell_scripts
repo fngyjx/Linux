@@ -1,6 +1,9 @@
+Glob, glob pattern, globbing (https://en.wikipedia.org/wiki/Glob_%28programming%29)
+In computer programming, in particular in a Unix-like environment, glob patterns specify sets of filenames with wildcard characters. For example, the Unix command mv *.txt textfiles/ moves (mv) all files with names ending in .txt from the current directory to the directory textfiles. Here, * is a wildcard standing for "any string of characters" and *.txt is a glob pattern. The other common wildcard is the question mark (?), which stands for one character.
+Unix shell globbing operates by parameter expansion – the glob pattern (e.g., *.log) is expanded and replaced by the list of all matches.
 
 Linux enviroument:  uname -a
-Linux localhost 2.6.18-308.4.1.el5xen #1 SMP Tue Apr 17 18:27:35 EDT 2012 i686 i686 i386 GNU/Linux
+Linux localhost 2.6.xx-xxx.x.x.el5xen #1 SMP Tue Apr 17 18:27:35 EDT 2012 i686 i686 i386 GNU/Linux
 
 1. Redirect file discriptor of the script file: temporary vs permanently redirection. temporary - regular commands, permanently - exec command.
 > exec 2>log.err # Permanently redirect standard error discriptor to log.err in current shell
@@ -35,7 +38,19 @@ subshell usually more computationally expensive than compound statements. change
 
 3. how to tell shell commands from shell external utility binary commands - 
     anything you may find in /bin. e.g. true is not shell command but : is.
-    It is important for writing portable shell scripts.
+    It is important for writing portable shell scripts. shell searches $PATH for a command (without slashes) that is not a built-in but does not search for path for built-in command.
+
+$ PATH="" ls; echo $?
+-bash: ls: No such file or directory
+127
+
+$ PATH="" echo hello; echo $?
+hello
+0
+
+so you know that 'ls' is an external utility but 'echo' is a shell command.
+ alias, declare, typeset, export, readonly, set, and local are builtin commands.
+
 
 4. Here Document: (cat <<limit_string)
     a) hyphen after << tells shell to strip leading tabs (but not leading spaces);
@@ -86,7 +101,17 @@ Cannot expand variables into special kokens - only plain words. the results of s
 
 keywords: ! { } case do done elif else esac fi for if in then while until
 
+until is doing same as while but the 'list' after until is false but true. Note: the 0 is not false but '' is.
+
+until [ 0 ]; do date;done 
+will not have loop
+x=0; until [ '' ];do date;done
+will loop.
+util [ x$x = x2 ];do date;x=$((x + 1));done
+
 command lists - command list can be endded with a special keyword. the command list exist status is the last command existing status.
+such as while syntax: while list; do list; done
+examples:
   while if true; then false; fi do false;done
   echo $?
  0
@@ -102,14 +127,15 @@ Where ';' ends the command list of while.
 short circuits : if exit condition can be determined the cmd2 can be skipped.
 cmd1 && cmd2 # both true is true otherwise false
 cmd1 || cmd2 # either true is true, both false is false.
-so that if cmd1 is false then cmd2 after && will be skipped; in the other side cmd2 after || will be executed.
-        if cmd1 is true the cmd2 after && will not be skipped and cmd2 after || will be skipped
+so that 
+  if cmd1 is false then cmd2 after && will be skipped; in the other side cmd2 after || will be executed.
+  if cmd1 is true the cmd2 after && will not be skipped and cmd2 after || will be skipped
 
 Use external shell to start a completely independent (to parent) background task.
 
 sh -c "back_ground_task >/dev/null 2>&1 </dev/null &"
 
-The standard I/O redirection is important, cus the parent process may have I/O stream opened when the back ground process is started to preent they are closed when the back ground task exits.
+The standard I/O redirection is important, cus the parent process may have I/O stream opened when the back ground process is started to prevent that they are closed when the back ground task exits.
 
 sh -c "tar cf - $dir | bizp2 | ssh user@remote \"bzip2 -dc | tar xf -\" &"
 
@@ -127,9 +153,12 @@ var=`md5sum Shell_scripts`; echo "var=["$var"]"
 Pipe redirection
 
 md5sum Shell_scripts | read var; echo "var=["$var"]"
- var=[]
+ var=[7038614ac94e84aa58c2326e41cbbbe6 Shell_scripts]
 
-md5sum Shell_scripts | ( read var; echo "var=["$var"]"
+md5sum Shell_scripts | read var; echo "var=[$var]"
+ var=[7038614ac94e84aa58c2326e41cbbbe6  Shell_scripts]
+
+md5sum Shell_scripts | ( read var; echo "var=["$var"]" )
  var=[80dcfb33778ff19dae3a8777e4722c5e Shell_scripts]
 
 md5sum Shell_scripts 2>/dev/null | (read var var1; echo "var=["$var"] var1=["$var1"]")
